@@ -1,0 +1,115 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWPF>false</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<RootNamespace>TrackerUI</RootNamespace>
+		<AssemblyName>TrackerUI</AssemblyName>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.0.123" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+		<PackageReference Include="Mono.Cecil" Version="0.11.4" />
+		<PackageReference Include="SharpCompress" Version="0.29.0" />
+		<PackageReference Include="Squirrel.Windows" Version="2.0.1" />
+		<PackageReference Include="Splat" Version="14.2.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="CreatePrizeForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Include="CreatePrizeForm.Designer.cs">
+			<DependentUpon>CreatePrizeForm.cs</DependentUpon>
+		</Compile>
+		<Compile Include="CreateTeamForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Include="CreateTeamForm.Designer.cs">
+			<DependentUpon>CreateTeamForm.cs</DependentUpon>
+		</Compile>
+		<Compile Include="CreateTournamentForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Include="CreateTournamentForm.Designer.cs">
+			<DependentUpon>CreateTournamentForm.cs</DependentUpon>
+		</Compile>
+		<Compile Include="IPrizeRequester.cs" />
+		<Compile Include="ITeamRequester.cs" />
+		<Compile Include="TournamentDashboardForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Include="TournamentDashboardForm.Designer.cs">
+			<DependentUpon>TournamentDashboardForm.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TournamentResultForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Include="TournamentResultForm.Designer.cs">
+			<DependentUpon>TournamentResultForm.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TournamentViewerForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Include="TournamentViewerForm.Designer.cs">
+			<DependentUpon>TournamentViewerForm.cs</DependentUpon>
+		</Compile>
+		<Compile Include="Program.cs" />
+		<Compile Include="Properties\AssemblyInfo.cs" />
+		<EmbeddedResource Include="CreatePrizeForm.resx">
+			<DependentUpon>CreatePrizeForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Include="CreateTeamForm.resx">
+			<DependentUpon>CreateTeamForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Include="CreateTournamentForm.resx">
+			<DependentUpon>CreateTournamentForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+		<Compile Include="Properties\Resources.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+		</Compile>
+		<EmbeddedResource Include="TournamentDashboardForm.resx">
+			<DependentUpon>TournamentDashboardForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Include="TournamentResultForm.resx">
+			<DependentUpon>TournamentResultForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Include="TournamentViewerForm.resx">
+			<DependentUpon>TournamentViewerForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<None Include="app.config" />
+		<None Include="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+		<Compile Include="Properties\Settings.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\TrackerLibrary\TrackerLibrary.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="appsettings.json" />
+	</ItemGroup>
+
+</Project>

@@ -1,8 +1,8 @@
 ### User Story Details
 
-| Key      | Summary                  | Description                                                                                                    | Acceptance Criteria                                                                 |
-|----------|--------------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| PM1-955  | Handle No Results Found  | As a user, I want to be informed when no products match my search.                                             | If no products match the search, a message "No products found" is displayed.        |
+| Key      | Summary                   | Description                                                                                                         | Acceptance Criteria                                                                 |
+|----------|---------------------------|---------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| PM1-955  | Handle No Results Found   | As a user, I want to be informed when no products match my search.                                                  | If no products match the search, a message "No products found" is displayed.        |
 
 ---
 
@@ -11,72 +11,78 @@
 | Test Case ID | Scenario                                 | Steps                                                                 | Expected Result                        |
 |--------------|------------------------------------------|-----------------------------------------------------------------------|----------------------------------------|
 | TC1          | No products match search (positive)      | 1. Enter a search term with no matching products.<br>2. Submit search.| "No products found" message displayed. |
-| TC2          | Products match search (negative)         | 1. Enter a search term with matching products.<br>2. Submit search.   | Product list is displayed.             |
-| TC3          | Empty search term (negative)             | 1. Leave search field empty.<br>2. Submit search.                     | All products or prompt for input.      |
-| TC4          | Special characters in search (positive)  | 1. Enter special characters.<br>2. Submit search.                     | "No products found" message displayed. |
-| TC5          | Case sensitivity (negative)              | 1. Enter search term in different case.<br>2. Submit search.          | Matching products are displayed.       |
+| TC2          | Products match search (negative)         | 1. Enter a search term with matching products.<br>2. Submit search.   | Product list displayed, no message.    |
+| TC3          | Empty search term (edge case)            | 1. Leave search box empty.<br>2. Submit search.                       | All products or prompt for input.      |
+| TC4          | Special characters in search (negative)  | 1. Enter special characters.<br>2. Submit search.                     | "No products found" or valid handling. |
+| TC5          | Rapid consecutive searches (edge case)   | 1. Perform multiple searches quickly.                                 | Correct message for each search.       |
 
 ---
 
 ### Test Plan
 
-| Phase         | Activity                                    | Expected Outcome                          |
-|---------------|---------------------------------------------|-------------------------------------------|
-| Preparation   | Set up product database with test data      | Test data available                       |
-| Execution     | Run test cases TC1–TC5                      | Results match expected outcomes           |
-| Reporting     | Log defects if actual ≠ expected            | Defects tracked and reported              |
-| Regression    | Re-run tests after fixes                    | All tests pass                            |
+| Test Activity                | Description                                                      | Responsible | Status   |
+|------------------------------|------------------------------------------------------------------|-------------|----------|
+| Requirement Review           | Review user story and acceptance criteria                        | QA          | Pending  |
+| Test Case Design             | Create test cases for all scenarios                              | QA          | Pending  |
+| Test Data Preparation        | Prepare data for matching and non-matching searches              | QA          | Pending  |
+| Test Execution               | Execute test cases in VS Code                                    | QA          | Pending  |
+| Result Verification          | Verify "No products found" message and product list display      | QA          | Pending  |
+| Regression Testing           | Ensure no impact on other search functionalities                 | QA          | Pending  |
 
 ---
 
 ### Test Data
 
-| Search Term      | Products in DB         | Expected Result                        |
-|------------------|-----------------------|----------------------------------------|
-| "xyz123"         | None                   | "No products found" message            |
-| "Laptop"         | "Laptop", "Laptop Bag" | Product list displayed                 |
-| ""               | "Laptop", "Phone"      | All products or prompt for input       |
-| "@#$%"           | None                   | "No products found" message            |
-| "laptop"         | "Laptop"               | Product list displayed                 |### User Story Details
+| Test Data ID | Search Term         | Expected Result                        |
+|--------------|--------------------|----------------------------------------|
+| TD1          | "xyz123"           | No products found                      |
+| TD2          | "laptop"           | Product list displayed                 |
+| TD3          | "" (empty)         | All products or prompt for input       |
+| TD4          | "!@#$%"            | No products found or valid handling    |
+| TD5          | "phone"            | Product list displayed                 |### User Story Details
 
-| Key      | Summary                     | Description                                                                                                      | Acceptance Criteria                                                                                  |
-|----------|-----------------------------|------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| PM1-954  | Implement Search Suggestions| As a user, I want to see search suggestions as I type to speed up my search process.                             | Search suggestions appear dynamically as the user types in the search bar.                           |
+| Key      | Summary                      | Description                                                                                                   | Acceptance Criteria                                                                                   |
+|----------|------------------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| PM1-954  | Implement Search Suggestions | As a user, I want to see search suggestions as I type to speed up my search process.                          | Search suggestions appear dynamically as the user types in the search bar.                            |
 
 ---
 
 ### Test Cases
 
-| Test Case ID | Scenario                        | Steps                                                                 | Expected Result                                               |
-|--------------|---------------------------------|-----------------------------------------------------------------------|---------------------------------------------------------------|
-| TC1          | Positive: Suggestions appear    | 1. Focus on search bar<br>2. Type "ap"                                 | Suggestions like "apple", "application" appear dynamically    |
-| TC2          | Positive: Select suggestion     | 1. Type "ban"<br>2. Click on "banana" suggestion                       | "banana" is populated in the search bar                       |
-| TC3          | Negative: No suggestions        | 1. Type "xyzqwerty" (no matches)                                       | "No suggestions found" or empty suggestion list                |
-| TC4          | Negative: Empty input           | 1. Focus on search bar<br>2. Do not type anything                       | No suggestions shown                                          |
-| TC5          | Positive: Keyboard navigation   | 1. Type "gr"<br>2. Use arrow keys to navigate suggestions<br>3. Press Enter | Selected suggestion is populated in the search bar             |
-| TC6          | Negative: Special characters    | 1. Type "@#$%"                                                         | No suggestions shown or appropriate message displayed          |
+| Test Case ID | Scenario                        | Steps                                                                 | Expected Result                                                      |
+|--------------|---------------------------------|-----------------------------------------------------------------------|----------------------------------------------------------------------|
+| TC1          | Suggestions appear (positive)   | 1. Focus on search bar<br>2. Type "ap"                                 | Suggestions related to "ap" appear dynamically                       |
+| TC2          | No suggestions (negative)       | 1. Focus on search bar<br>2. Type random string "xyzqwe"               | No suggestions are shown                                             |
+| TC3          | Empty input (negative)          | 1. Focus on search bar<br>2. Do not type anything                      | No suggestions are shown                                             |
+| TC4          | Suggestions update (positive)   | 1. Type "a"<br>2. Continue typing "ap"                                 | Suggestions update as input changes                                  |
+| TC5          | Select suggestion (positive)    | 1. Type "ap"<br>2. Click a suggestion                                  | Search bar is populated with selected suggestion                     |
+| TC6          | Keyboard navigation (positive)  | 1. Type "ap"<br>2. Use arrow keys to navigate suggestions<br>3. Press Enter | Selected suggestion is populated in the search bar                   |
+| TC7          | Special characters (negative)   | 1. Type special characters "!@#"                                       | No suggestions are shown or appropriate suggestions are displayed     |
+| TC8          | Rapid typing (positive)         | 1. Type quickly in the search bar                                      | Suggestions update smoothly without lag                              |
 
 ---
 
 ### Test Plan
 
-| Phase         | Activity                                 | Description                                                      |
-|---------------|------------------------------------------|------------------------------------------------------------------|
-| Preparation   | Test environment setup                   | Ensure search bar and suggestion service are available           |
-| Execution     | Functional testing                       | Execute all positive and negative test cases                     |
-| Validation    | UI/UX validation                         | Check suggestion display, responsiveness, and accessibility      |
-| Regression    | Integration testing                      | Ensure no impact on existing search functionality                |
-| Reporting     | Defect logging and reporting             | Log any issues found during testing                              |
+| Test Phase      | Objective                                      | Activities                                      | Responsible      |
+|-----------------|------------------------------------------------|-------------------------------------------------|------------------|
+| Unit Testing    | Validate suggestion logic                      | Test suggestion function with various inputs    | Developer        |
+| Integration     | Ensure UI and backend work together            | Test end-to-end suggestion flow                 | Developer        |
+| System Testing  | Validate feature in full application context   | Execute all test cases above                    | QA Engineer      |
+| Regression      | Ensure no impact on existing search features   | Run existing search-related test cases          | QA Engineer      |
+| UAT             | Confirm feature meets user needs               | Demo to stakeholders, gather feedback           | Product Manager  |
 
 ---
 
 ### Test Data
 
-| Input         | Expected Suggestions           |
-|---------------|-------------------------------|
-| ap            | apple, application, apex      |
-| ban           | banana, band, bank            |
-| xyzqwerty     | (none)                        |
-| (empty)       | (none)                        |
-| gr            | grape, graph, grass           |
-| @#$%          | (none)                        |
+| Input         | Expected Suggestions         | Notes                        |
+|---------------|-----------------------------|------------------------------|
+| "ap"          | apple, application, apex    | Common prefix                |
+| "ban"         | banana, band, bank          | Multiple matches             |
+| "xyzqwe"      | (none)                      | No matches                   |
+| ""            | (none)                      | Empty input                  |
+| "!@#"         | (none) or relevant matches  | Special characters           |
+| "a"           | apple, application, apex    | Single character             |
+| "app"         | apple, application          | Narrowed suggestions         |
+| "bank"        | bank                        | Exact match                  |

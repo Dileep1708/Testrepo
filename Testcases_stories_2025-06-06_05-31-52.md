@@ -10,75 +10,73 @@
 
 | Test Case ID | Scenario                                 | Steps                                                                 | Expected Result                        |
 |--------------|------------------------------------------|-----------------------------------------------------------------------|----------------------------------------|
-| TC1          | No products match search (positive)      | 1. Enter a search term with no matches<br>2. Submit search            | "No products found" message displayed  |
-| TC2          | Products match search (negative)         | 1. Enter a search term with matches<br>2. Submit search               | Product list displayed, no message     |
-| TC3          | Empty search term (negative)             | 1. Leave search field empty<br>2. Submit search                       | All products displayed, no message     |
-| TC4          | Special characters in search (positive)  | 1. Enter special characters<br>2. Submit search                        | "No products found" message displayed  |
-| TC5          | Case sensitivity (negative)              | 1. Enter search term with different case<br>2. Submit search           | Product list displayed if matches      |
+| TC1          | No products match search (positive)      | 1. Enter a search term with no matching products.<br>2. Submit search.| "No products found" message displayed. |
+| TC2          | Products match search (negative)         | 1. Enter a search term with matching products.<br>2. Submit search.   | Product list is displayed.             |
+| TC3          | Empty search term (negative)             | 1. Leave search field empty.<br>2. Submit search.                     | All products or prompt for input.      |
+| TC4          | Special characters in search (positive)  | 1. Enter special characters.<br>2. Submit search.                     | "No products found" message displayed. |
+| TC5          | Case sensitivity (negative)              | 1. Enter search term in different case.<br>2. Submit search.          | Matching products are displayed.       |
 
 ---
 
 ### Test Plan
 
-| Phase         | Activity                                  | Expected Outcome                                  |
-|---------------|-------------------------------------------|---------------------------------------------------|
-| Preparation   | Set up test environment                   | Test environment ready                            |
-| Execution     | Run test cases TC1-TC5                    | All acceptance criteria validated                 |
-| Reporting     | Document results and defects (if any)     | Test report completed                             |
+| Phase         | Activity                                    | Expected Outcome                          |
+|---------------|---------------------------------------------|-------------------------------------------|
+| Preparation   | Set up product database with test data      | Test data available                       |
+| Execution     | Run test cases TC1–TC5                      | Results match expected outcomes           |
+| Reporting     | Log defects if actual ≠ expected            | Defects tracked and reported              |
+| Regression    | Re-run tests after fixes                    | All tests pass                            |
 
 ---
 
 ### Test Data
 
-| Search Term      | Expected Result                        |
-|------------------|---------------------------------------|
-| "xyz123"         | "No products found" message            |
-| "Laptop"         | Product list displayed                 |
-| "" (empty)       | All products displayed                 |
-| "!@#$%"          | "No products found" message            |
-| "laptop"         | Product list displayed (case insensitive) |### User Story Details
+| Search Term      | Products in DB         | Expected Result                        |
+|------------------|-----------------------|----------------------------------------|
+| "xyz123"         | None                   | "No products found" message            |
+| "Laptop"         | "Laptop", "Laptop Bag" | Product list displayed                 |
+| ""               | "Laptop", "Phone"      | All products or prompt for input       |
+| "@#$%"           | None                   | "No products found" message            |
+| "laptop"         | "Laptop"               | Product list displayed                 |### User Story Details
 
-| Key      | Summary                     | Description                                                                                                   | Acceptance Criteria                                                                 |
-|----------|-----------------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| PM1-954  | Implement Search Suggestions | As a user, I want to see search suggestions as I type to speed up my search process.                          | Search suggestions appear dynamically as the user types in the search bar.           |
+| Key      | Summary                     | Description                                                                                                      | Acceptance Criteria                                                                                  |
+|----------|-----------------------------|------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| PM1-954  | Implement Search Suggestions| As a user, I want to see search suggestions as I type to speed up my search process.                             | Search suggestions appear dynamically as the user types in the search bar.                           |
 
 ---
 
 ### Test Cases
 
-| Test Case ID | Scenario                                   | Steps                                                                 | Expected Result                                               |
-|--------------|--------------------------------------------|-----------------------------------------------------------------------|---------------------------------------------------------------|
-| TC1          | Suggestions appear for valid input         | 1. Focus search bar<br>2. Type "ap"                                   | Suggestions like "apple", "application" appear dynamically    |
-| TC2          | No suggestions for empty input             | 1. Focus search bar<br>2. Leave input empty                           | No suggestions are displayed                                  |
-| TC3          | Suggestions update as user types           | 1. Type "a"<br>2. Type "ap"                                           | Suggestions update from "a" to "ap" results                   |
-| TC4          | No suggestions for unmatched input         | 1. Type "xyzq"                                                        | No suggestions are displayed                                  |
-| TC5          | Suggestions disappear on blur              | 1. Type "ap"<br>2. Click outside search bar                           | Suggestions list disappears                                   |
-| TC6          | Special characters in input                | 1. Type "@#$%"                                                        | No suggestions are displayed                                  |
-| TC7          | Suggestions for case-insensitive input     | 1. Type "Ap" or "ap"                                                  | Same suggestions appear regardless of case                    |
-| TC8          | Suggestions for rapid typing               | 1. Type quickly "apple"                                               | Suggestions update smoothly without lag                       |
+| Test Case ID | Scenario                        | Steps                                                                 | Expected Result                                               |
+|--------------|---------------------------------|-----------------------------------------------------------------------|---------------------------------------------------------------|
+| TC1          | Positive: Suggestions appear    | 1. Focus on search bar<br>2. Type "ap"                                 | Suggestions like "apple", "application" appear dynamically    |
+| TC2          | Positive: Select suggestion     | 1. Type "ban"<br>2. Click on "banana" suggestion                       | "banana" is populated in the search bar                       |
+| TC3          | Negative: No suggestions        | 1. Type "xyzqwerty" (no matches)                                       | "No suggestions found" or empty suggestion list                |
+| TC4          | Negative: Empty input           | 1. Focus on search bar<br>2. Do not type anything                       | No suggestions shown                                          |
+| TC5          | Positive: Keyboard navigation   | 1. Type "gr"<br>2. Use arrow keys to navigate suggestions<br>3. Press Enter | Selected suggestion is populated in the search bar             |
+| TC6          | Negative: Special characters    | 1. Type "@#$%"                                                         | No suggestions shown or appropriate message displayed          |
 
 ---
 
 ### Test Plan
 
-| Phase            | Activity                                      | Expected Outcome                                  |
-|------------------|-----------------------------------------------|---------------------------------------------------|
-| Preparation      | Set up test environment, mock data            | Environment ready, data available                  |
-| Functional Test  | Execute positive and negative test cases      | All acceptance criteria met, no critical defects   |
-| Usability Test   | Test suggestion speed and relevance           | Suggestions are fast and relevant                  |
-| Regression Test  | Test with other search bar features           | No regression in existing functionality            |
-| Reporting        | Document results, log defects if any          | Test report completed, defects tracked             |
+| Phase         | Activity                                 | Description                                                      |
+|---------------|------------------------------------------|------------------------------------------------------------------|
+| Preparation   | Test environment setup                   | Ensure search bar and suggestion service are available           |
+| Execution     | Functional testing                       | Execute all positive and negative test cases                     |
+| Validation    | UI/UX validation                         | Check suggestion display, responsiveness, and accessibility      |
+| Regression    | Integration testing                      | Ensure no impact on existing search functionality                |
+| Reporting     | Defect logging and reporting             | Log any issues found during testing                              |
 
 ---
 
 ### Test Data
 
-| Input      | Expected Suggestions                | Notes                        |
-|------------|------------------------------------|------------------------------|
-| "a"        | apple, application, art            | Common prefix                |
-| "ap"       | apple, application                 | Narrowed prefix              |
-| "xyzq"     | (none)                             | No match                     |
-| ""         | (none)                             | Empty input                  |
-| "@#$%"     | (none)                             | Special characters           |
-| "Ap"       | apple, application                 | Case-insensitive             |
-| "apple"    | apple                              | Exact match                  |
+| Input         | Expected Suggestions           |
+|---------------|-------------------------------|
+| ap            | apple, application, apex      |
+| ban           | banana, band, bank            |
+| xyzqwerty     | (none)                        |
+| (empty)       | (none)                        |
+| gr            | grape, graph, grass           |
+| @#$%          | (none)                        |
